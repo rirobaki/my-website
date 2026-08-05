@@ -1,0 +1,594 @@
+<title>CRHS Mu Alpha Theta</title>
+<style>
+/* ── Design tokens ── */
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-2: #F5F0F0;
+  --maroon: #6B0F1A;
+  --maroon-dk: #500B13;
+  --text: #1A080E;
+  --muted: #8A7070;
+  --border: #E2D8D8;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #100408;
+    --surface: #1C0A12;
+    --surface-2: #261018;
+    --maroon: #B81E32;
+    --maroon-dk: #961828;
+    --text: #F0E6E8;
+    --muted: #A08890;
+    --border: #36141E;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #100408; --surface: #1C0A12; --surface-2: #261018;
+  --maroon: #B81E32; --maroon-dk: #961828;
+  --text: #F0E6E8; --muted: #A08890; --border: #36141E;
+}
+:root[data-theme="light"] {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface-2: #F5F0F0;
+  --maroon: #6B0F1A; --maroon-dk: #500B13;
+  --text: #1A080E; --muted: #8A7070; --border: #E2D8D8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 200;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand { display: flex; align-items: center; gap: .65rem; text-decoration: none; color: var(--text); }
+.nav-symbol {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--maroon); display: flex; align-items: center; justify-content: center;
+  font-family: Georgia, serif; font-size: 16px; font-style: italic; font-weight: bold;
+  color: #fff; flex-shrink: 0;
+}
+.nav-label strong { display: block; font-size: 13px; font-weight: 700; letter-spacing: .04em; }
+.nav-label small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.nav-links { display: flex; gap: 1.75rem; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--muted);
+  font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--maroon); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh; display: grid; align-items: center;
+  padding: 80px 2rem 4rem; position: relative; overflow: hidden;
+}
+#hero-canvas { position: absolute; inset: 0; pointer-events: none; }
+.hero-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 2; }
+
+.eyebrow {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--maroon); font-weight: 700; margin-bottom: 1.25rem;
+}
+
+.hero-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(3rem, 6.5vw, 5.25rem);
+  line-height: 1.05; text-wrap: balance; margin-bottom: 1.4rem;
+  font-style: italic;
+}
+.hero-title em { color: var(--maroon); font-style: normal; }
+
+.hero-sub {
+  font-size: 1.1rem; color: var(--muted); max-width: 510px;
+  line-height: 1.72; margin-bottom: 2.5rem;
+}
+.btn-row { display: flex; gap: .875rem; flex-wrap: wrap; }
+
+.btn {
+  text-decoration: none; padding: .7rem 1.65rem;
+  font-size: 13px; letter-spacing: .07em; text-transform: uppercase; font-weight: 600;
+  display: inline-flex; align-items: center; gap: .4rem; cursor: pointer; border: none;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.btn-primary { background: var(--maroon); color: #fff; }
+.btn-primary:hover { background: var(--maroon-dk); }
+.btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+.btn-outline:hover { border-color: var(--maroon); color: var(--maroon); }
+
+.hero-stats {
+  display: flex; gap: 3.5rem; margin-top: 4rem;
+  padding-top: 2rem; border-top: 1px solid var(--border); flex-wrap: wrap;
+}
+.stat-n {
+  font-family: Georgia, serif; font-size: 2.75rem; color: var(--maroon);
+  font-variant-numeric: tabular-nums; font-style: italic; line-height: 1;
+}
+.stat-lbl { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: .35rem; }
+
+/* ── GENERIC ── */
+.wrap { max-width: 1100px; margin: 0 auto; padding: 6rem 2rem; }
+.section-head { margin-bottom: 3rem; }
+.section-title {
+  font-family: Georgia, serif; font-size: clamp(1.9rem, 3.5vw, 2.7rem);
+  font-style: italic; text-wrap: balance; line-height: 1.2; margin-top: .5rem;
+}
+
+/* ── ABOUT ── */
+.two-col { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: start; }
+.about-text p { color: var(--muted); margin-bottom: 1.1rem; line-height: 1.75; font-size: 15px; }
+
+.pillars { display: grid; gap: .875rem; }
+.pillar {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 3px solid var(--maroon); padding: 1.25rem 1.5rem;
+}
+.pillar h3 { font-size: 15px; font-weight: 700; margin-bottom: .3rem; }
+.pillar p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── TUTORING ── */
+.alt-bg { background: var(--surface-2); }
+
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+thead th {
+  text-align: left; padding: .5rem 1rem;
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); border-bottom: 1px solid var(--border);
+}
+tbody td { padding: .7rem 1rem; border-bottom: 1px solid var(--border); }
+tbody tr:last-child td { border-bottom: none; }
+tbody td:first-child { font-weight: 600; }
+
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.5rem; }
+.tag { background: var(--maroon); color: #fff; padding: .28rem .75rem; font-size: 12px; border-radius: 2px; }
+
+.note {
+  margin-top: 1.5rem; padding: .875rem 1.125rem;
+  border-left: 3px solid var(--maroon); background: var(--surface);
+  font-size: 13px; color: var(--muted); line-height: 1.65;
+}
+.note strong { color: var(--text); }
+
+/* ── COMPETITIONS ── */
+.comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.25rem; }
+.comp-card {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 1.75rem; position: relative; overflow: hidden;
+  transition: border-color .2s;
+}
+.comp-card:hover { border-color: var(--gold); }
+.comp-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--maroon); }
+.comp-level { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--maroon); font-weight: 700; margin-bottom: .6rem; }
+.comp-name { font-family: Georgia, serif; font-size: 1.2rem; font-style: italic; margin-bottom: .5rem; }
+.comp-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── JOIN ── */
+.join-bg { background: var(--maroon); }
+.join-bg .section-title { color: #fff; }
+.join-bg .eyebrow { color: rgba(255,255,255,.7); }
+
+.req-list { list-style: none; display: grid; gap: .875rem; margin-top: 1.75rem; }
+.req-list li { display: flex; align-items: flex-start; gap: .875rem; font-size: 15px; color: rgba(255,255,255,.85); line-height: 1.55; }
+.req-dot { width: 6px; height: 6px; background: #fff; border-radius: 50%; margin-top: .55rem; flex-shrink: 0; }
+
+.interest-form {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14);
+  padding: 2rem; display: grid; gap: 1rem;
+}
+.interest-form .form-head { color: rgba(255,255,255,.9); font-size: 14px; font-weight: 700; }
+.interest-form .form-sub { color: rgba(255,255,255,.45); font-size: 12px; margin-top: -.5rem; }
+
+.field label { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: .35rem; }
+.field input, .field select {
+  width: 100%; background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.18); color: #fff;
+  padding: .6rem .8rem; font-size: 14px; outline: none;
+  transition: border-color .2s; -webkit-appearance: none; appearance: none;
+}
+.field input:focus, .field select:focus { border-color: #fff; }
+.field input::placeholder { color: rgba(255,255,255,.35); }
+.field select option { background: #5C1220; }
+
+.btn-gold {
+  background: #fff; color: var(--maroon); border: none;
+  padding: .75rem; font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+  cursor: pointer; font-weight: 700; width: 100%; transition: background .2s, color .2s;
+}
+.btn-gold:hover { background: rgba(255,255,255,.88); }
+
+/* ── OFFICERS ── */
+.officers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1.25rem; }
+.officer-card { background: var(--surface); border: 1px solid var(--border); padding: 1.75rem 1rem; text-align: center; }
+.officer-avatar {
+  width: 62px; height: 62px; background: var(--surface-2); border-radius: 50%;
+  margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;
+  font-family: Georgia, serif; font-size: 1.25rem; font-style: italic;
+  color: var(--maroon); font-weight: bold;
+}
+.officer-name { font-weight: 700; font-size: 14px; }
+.officer-role { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: .25rem; }
+
+/* ── FOOTER ── */
+footer { background: var(--text); color: rgba(255,255,255,.5); padding: 2.5rem 2rem; }
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-brand { font-family: Georgia, serif; font-style: italic; font-size: 1rem; color: rgba(255,255,255,.9); }
+.footer-brand small {
+  display: block; font-style: normal; font-size: 12px;
+  font-family: system-ui, sans-serif; color: rgba(255,255,255,.4);
+  margin-top: .2rem; letter-spacing: .04em;
+}
+.footer-info { font-size: 12px; text-align: right; line-height: 1.7; }
+.footer-info a { color: rgba(255,255,255,.65); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 740px) {
+  .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+  .nav-links { display: none; }
+  .hero-stats { gap: 2rem; }
+  .footer-inner { flex-direction: column; }
+  .footer-info { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+</style>
+
+<!-- ────── NAV ────── -->
+<nav>
+  <a class="nav-brand" href="#top">
+    <div class="nav-symbol">μ</div>
+    <div class="nav-label">
+      <strong>Mu Alpha Theta</strong>
+      <small>Cinco Ranch HS</small>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#tutoring">Tutoring</a></li>
+    <li><a href="#competitions">Compete</a></li>
+    <li><a href="#join">Join</a></li>
+    <li><a href="#officers">Officers</a></li>
+  </ul>
+</nav>
+
+<!-- ────── HERO ────── -->
+<section class="hero" id="top">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="eyebrow">Cinco Ranch High School &nbsp;·&nbsp; Katy, TX</div>
+    <h1 class="hero-title">
+      Where <em>mathematics</em><br>meets ambition
+    </h1>
+    <p class="hero-sub">
+      CRHS Mu Alpha Theta is the national math honor society — offering free peer tutoring, competitive math teams, and a community for students who love mathematics.
+    </p>
+    <div class="btn-row">
+      <a href="#join" class="btn btn-primary">Join the Chapter</a>
+      <a href="#tutoring" class="btn btn-outline">Get Tutoring →</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-n">80+</div>
+        <div class="stat-lbl">Active Members</div>
+      </div>
+      <div>
+        <div class="stat-n">3+</div>
+        <div class="stat-lbl">Competitions</div>
+      </div>
+      <div>
+        <div class="stat-n">Free</div>
+        <div class="stat-lbl">Peer Tutoring</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────── ABOUT ────── -->
+<section id="about">
+  <div class="wrap two-col">
+    <div class="about-text">
+      <div class="section-head">
+        <div class="eyebrow">About Us</div>
+        <h2 class="section-title">Math is for everyone who dares to think</h2>
+      </div>
+      <p>Mu Alpha Theta (μαθ) is the national mathematics honor society for high school students — dedicated to inspiring mathematical curiosity, developing strong scholarship, and building a community around the love of math.</p>
+      <p>The Cinco Ranch chapter competes at local, state, and national levels, runs a well-attended peer tutoring program, and hosts events that bring the entire school community together around mathematics.</p>
+      <p>Whether you're chasing a perfect AMC score, struggling through Precalculus, or just want to find your people — this is your chapter.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <h3>Academic Excellence</h3>
+        <p>Membership recognizes students with outstanding mathematical achievement and a commitment to scholarship.</p>
+      </div>
+      <div class="pillar">
+        <h3>Peer Tutoring</h3>
+        <p>Members volunteer their time helping fellow Cougars from Algebra I through AP Calculus BC — at no cost.</p>
+      </div>
+      <div class="pillar">
+        <h3>Competition Team</h3>
+        <p>We compete in AMC 10/12, TMSCA, the University of Houston competition, and more throughout the school year.</p>
+      </div>
+      <div class="pillar">
+        <h3>Weekly Meetings</h3>
+        <p>We meet every week in Mrs. Fosli's room — for tutoring, competition prep, and chapter business.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────── TUTORING ────── -->
+<div class="alt-bg" id="tutoring">
+  <div class="wrap two-col">
+    <div>
+      <div class="section-head">
+        <div class="eyebrow">Tutoring Program</div>
+        <h2 class="section-title">Free help, when you need it</h2>
+      </div>
+      <p style="color: var(--muted); font-size: 15px; line-height: 1.75; margin-bottom: 1.25rem;">
+        Struggling before a test? Come by every Wednesday — no sign-up, no requirements, no strings. Our peer tutors are fellow students who know the material and know how to explain it.
+      </p>
+      <div>
+        <div class="eyebrow" style="margin-bottom: .6rem; color: var(--maroon);">Subjects Covered</div>
+        <div class="tags">
+          <span class="tag">Algebra I &amp; II</span>
+          <span class="tag">Geometry</span>
+          <span class="tag">Precalculus</span>
+          <span class="tag">Statistics</span>
+          <span class="tag">AP Calc AB</span>
+          <span class="tag">AP Calc BC</span>
+          <span class="tag">AP Statistics</span>
+          <span class="tag">SAT / ACT Math</span>
+        </div>
+      </div>
+      <div class="note">
+        <strong>Anyone is welcome.</strong> No requirements, no sign-up — just bring your questions. Sessions are held every Wednesday in Mrs. Fosli's room.
+      </div>
+    </div>
+    <div>
+      <div class="eyebrow" style="margin-bottom: 1rem; color: var(--maroon);">When &amp; Where</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Location</th>
+              <th>Open To</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Every Wednesday</td><td>Mrs. Fosli's Room</td><td>All students</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top: 1.25rem; font-size: 13px; color: var(--muted); line-height: 1.7;">
+        No appointment needed &mdash; walk in any Wednesday and a peer tutor will be ready to help with any math course.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ────── COMPETITIONS ────── -->
+<section id="competitions">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Compete</div>
+      <h2 class="section-title">Math on the big stage</h2>
+    </div>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-level">National &middot; November</div>
+        <div class="comp-name">AMC 10 / AMC 12</div>
+        <p class="comp-desc">The MAA's flagship competition — 30 multiple-choice questions, 75 minutes. We host both exams at CRHS every November, open to all members.</p>
+      </div>
+      <div class="comp-card">
+        <div class="comp-level">State &middot; Full Year</div>
+        <div class="comp-name">TMSCA</div>
+        <p class="comp-desc">Texas Math and Science Coaches Association. We compete in number sense, calculator applications, and general math at invitational and district meets.</p>
+      </div>
+      <div class="comp-card">
+        <div class="comp-level">Local &middot; University of Houston</div>
+        <div class="comp-name">UoH Competition</div>
+        <p class="comp-desc">An invitational hosted by the University of Houston — a great opportunity to compete on a college campus against top Houston-area math students.</p>
+      </div>
+      <div class="comp-card" style="border-style: dashed; opacity: .7;">
+        <div class="comp-level">Coming Soon</div>
+        <div class="comp-name">More Competitions</div>
+        <p class="comp-desc">We're adding more competitions this year. Stay tuned — check back or join the chapter to be the first to know.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────── JOIN ────── -->
+<div class="join-bg" id="join">
+  <div class="wrap two-col">
+    <div>
+      <div class="section-head">
+        <div class="eyebrow">Membership</div>
+        <h2 class="section-title">Ready to be part of something?</h2>
+      </div>
+      <p style="color: rgba(255,255,255,.72); font-size: 15px; line-height: 1.75; margin-top: 1rem;">
+        Anyone can sign up — no GPA cutoff, no prerequisites, no audition. If you like math (or want to), you're welcome here.
+      </p>
+      <ul class="req-list">
+        <li><span class="req-dot"></span>Open to all Cinco Ranch students</li>
+        <li><span class="req-dot"></span>No requirements to join or attend tutoring</li>
+        <li><span class="req-dot"></span>Compete in AMC, TMSCA, UoH, and more</li>
+        <li><span class="req-dot"></span>Free peer tutoring every Wednesday</li>
+        <li><span class="req-dot"></span>Meet in Mrs. Fosli's room</li>
+      </ul>
+    </div>
+    <div>
+      <div class="interest-form">
+        <div class="form-head">Interest Form</div>
+        <div class="form-sub">We'll contact you when applications open.</div>
+        <div class="field">
+          <label>Full Name</label>
+          <input type="text" id="f-name" placeholder="Your full name">
+        </div>
+        <div class="field">
+          <label>KISD Email</label>
+          <input type="email" id="f-email" placeholder="student@katyisd.net">
+        </div>
+        <div class="field">
+          <label>Grade Level</label>
+          <select id="f-grade">
+            <option value="" disabled selected>Select your grade</option>
+            <option>Sophomore (10th)</option>
+            <option>Junior (11th)</option>
+            <option>Senior (12th)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Current Math Course</label>
+          <input type="text" id="f-course" placeholder="e.g. AP Calculus AB">
+        </div>
+        <button class="btn-gold" id="join-btn">Submit Interest</button>
+        <p id="join-msg" style="font-size: 12px; color: rgba(255,255,255,.55); display: none;"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ────── OFFICERS ────── -->
+<section id="officers">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Leadership</div>
+      <h2 class="section-title">Meet the officers</h2>
+    </div>
+    <div class="officers-grid">
+      <div class="officer-card">
+        <div class="officer-avatar">P</div>
+        <div class="officer-name">President</div>
+        <div class="officer-role">Leadership</div>
+      </div>
+      <div class="officer-card">
+        <div class="officer-avatar">VC</div>
+        <div class="officer-name">VP of Communications</div>
+        <div class="officer-role">Outreach &amp; Updates</div>
+      </div>
+      <div class="officer-card">
+        <div class="officer-avatar">VX</div>
+        <div class="officer-name">VP of Competitions</div>
+        <div class="officer-role">Competition Prep</div>
+      </div>
+      <div class="officer-card">
+        <div class="officer-avatar">VT</div>
+        <div class="officer-name">VP of Tutoring</div>
+        <div class="officer-role">Tutor Program</div>
+      </div>
+      <div class="officer-card">
+        <div class="officer-avatar">S</div>
+        <div class="officer-name">Secretary</div>
+        <div class="officer-role">Records &amp; Minutes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────── FOOTER ────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      Mu Alpha Theta — Cinco Ranch HS
+      <small>23440 Cinco Ranch Blvd, Katy, TX 77494</small>
+    </div>
+    <div class="footer-info">
+      Questions? Contact your sponsor teacher or<br>
+      email <a href="mailto:matcr@katyisd.net">matcr@katyisd.net</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Hero canvas: animated coordinate grid + floating math symbols ── */
+(function () {
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  const SYMS = ['∑', 'π', '∫', '∞', 'θ', 'Δ', '√', 'φ', 'λ', '∂', 'e', 'α'];
+  const pts = Array.from({length: 20}, () => ({
+    x: Math.random(), y: Math.random(),
+    vx: (Math.random() - .5) * .00018,
+    vy: (Math.random() - .5) * .00018,
+    sym: SYMS[Math.floor(Math.random() * SYMS.length)],
+    size: 14 + Math.random() * 16,
+    alpha: .12 + Math.random() * .18,
+  }));
+
+  function isDark() {
+    const t = document.documentElement.dataset.theme;
+    if (t === 'dark') return true;
+    if (t === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  function resize() {
+    W = canvas.offsetWidth; H = canvas.offsetHeight;
+    canvas.width = W; canvas.height = H;
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    const rgb = isDark() ? '255,230,235' : '122,28,44';
+    const gs = 60;
+    const ox = (W / 2) % gs, oy = (H / 2) % gs;
+
+    ctx.strokeStyle = `rgba(${rgb},.06)`;
+    ctx.lineWidth = 1;
+    for (let x = ox; x < W; x += gs) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+    for (let y = oy; y < H; y += gs) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+      if (p.y < 0) p.y = 1; if (p.y > 1) p.y = 0;
+      ctx.font = `${p.size}px Georgia, serif`;
+      ctx.fillStyle = `rgba(${rgb},${p.alpha})`;
+      ctx.fillText(p.sym, p.x * W, p.y * H);
+    });
+    requestAnimationFrame(frame);
+  }
+
+  resize();
+  frame();
+  window.addEventListener('resize', resize);
+})();
+
+/* ── Interest form ── */
+document.getElementById('join-btn').addEventListener('click', function () {
+  const name   = document.getElementById('f-name').value.trim();
+  const email  = document.getElementById('f-email').value.trim();
+  const grade  = document.getElementById('f-grade').value;
+  const course = document.getElementById('f-course').value.trim();
+  const msg    = document.getElementById('join-msg');
+
+  if (!name || !email) {
+    msg.textContent = 'Please fill in your name and email to continue.';
+    msg.style.display = 'block';
+    return;
+  }
+  const body = `Name: ${name}\nEmail: ${email}\nGrade: ${grade}\nCurrent Course: ${course}`;
+  window.location.href = `mailto:matcr@katyisd.net?subject=MAT Interest — ${encodeURIComponent(name)}&body=${encodeURIComponent(body)}`;
+  msg.textContent = "Opening your email client — thanks for your interest, we'll follow up soon!";
+  msg.style.display = 'block';
+});
+</script>
